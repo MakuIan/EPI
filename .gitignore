@@ -1,7 +1,9 @@
 #ignore env
 env/
 #ignore finished zips
-finished/
+finished
+#ignore workspace
+pyworkshop.code-workspace
 
 #ignore .vscode
 .vscode/
