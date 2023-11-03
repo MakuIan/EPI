@@ -3,9 +3,12 @@ __author__ = '8175858, Braun'
 Analysis:
 =========
 The program is developed according to the EVA design pattern.
-Input and output are done in the console. To calculate with other values (parameters), the values must be changed in `ue01.py`.
+
+Input and output are done in the console. To change ZBNP, just change the standard value of the parameter ZBNP in the function call.
+
 Only integers or floats are allowed. Other data types will result in an error.
 Decomposition: Implementation as functions.
+
 Output: Output is done in the console. Output is a float.
 
 Testing the program:
@@ -30,7 +33,7 @@ The results of the two defined functions are printed to the console inside the m
 
 Task2:
 Function uses the given formula to calculate the result. 
-If either epr or gpr is greater than 110, the input is invalid as the maximum achievable bonus points are 110.
+If either epr or gpr is greater than 110, the input is invalid as the maximum achievable bonus points are 110. Same goes for less than 0.
 
 Task3:
 Calculates the minimum number given to the function via the built-in function min(). 
