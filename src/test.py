@@ -1,4 +1,3 @@
-from typing import List
 
 
 def canJump(nums):
@@ -9,9 +8,10 @@ def canJump(nums):
     return last_index == 0
 
 
+def squares():
+    return (x**2 for x in range(1, 6))
+
+
 if __name__ == "__main__":
-    def f3(n):
-        return n+a
-    a = 4
-    y = f3(6)
-    print(y)
+    sq = squares()
+    print(sq)
