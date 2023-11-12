@@ -10,14 +10,18 @@ def decimal_to_binary(a: int) -> int:
     Returns:
         int: Binary number
     """
-    res = 0
-    i = 0
+    res = ''
+    if a == 0:
+        return 0
     while (a > 0):
         r = a % 2
-        res += r * (10 ** i)
+        res = str(r) + res
         a = a // 2
-        i += 1
-    return res
+    return int(res)
+# Testcase
+# print(decimal_to_binary(10)) # 1010
+# print(decimal_to_binary(0)) # 0
+# print(decimal_to_binary(1)) # 1
 
 
 if __name__ == '__main__':
