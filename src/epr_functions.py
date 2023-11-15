@@ -5,10 +5,16 @@ os.environ['TK_SILENCE_DEPRECATION'] = '1'
 
 
 def decimal_to_octal(num: int) -> str:
+    '''
+    Converts a decimal number to octal
+    '''
     return decimal_to_basis(num, 8)
 
 
 def decimal_to_basis(num: int, basis: int) -> str:
+    '''
+    Converts a decimal number to a number of a given basis
+    '''
     if num == 0:
         return '0'
     res = ''
@@ -20,13 +26,16 @@ def decimal_to_basis(num: int, basis: int) -> str:
 
 
 def chaos_turtle(i: int, x: int, y: int) -> None:
+    '''
+    Draws with turtle module
+    '''
     triangle = ((10, 20), (0, 100), (100, 0))
     print(type(triangle))
     t = turtle.Turtle()
     t.penup()
     t.setpos(x, y)
     t.pendown()
-    while (i > 0):
+    while i > 0:
         r = random.randint(0, 2)
         v = triangle[r]
         midpoint = ((t.xcor() + v[0]) / 2, (t.ycor() + v[1]) / 2)
