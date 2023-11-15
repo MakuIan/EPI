@@ -1,3 +1,8 @@
+'''
+module for ue03
+'''
+__author__ = '8175858, Braun'
+
 import turtle
 import random
 import os
@@ -18,7 +23,7 @@ def decimal_to_basis(num: int, basis: int) -> str:
     if num == 0:
         return '0'
     res = ''
-    while (num != 0):
+    while num != 0:
         r = num % basis
         num //= basis
         res = str(r) + res
