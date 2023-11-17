@@ -1,6 +1,7 @@
 '''
 Exercise 3 - GPR UE04
 '''
+__author__ = '8175858, Braun'
 
 
 def decimal_to_basis(num: int, basis: int) -> str:

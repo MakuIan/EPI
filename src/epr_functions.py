@@ -38,7 +38,7 @@ def decimal_to_basis(num: int, basis: int) -> str:
 # Testcases
 
 
-def chaos_turtle(i: int, x: int, y: int) -> None:
+def chaos_turtle(i: float, x: float, y: float) -> None:
     '''
     Draws dots with turtle module. In each step the turtle moves halfway to one of three points
     '''
