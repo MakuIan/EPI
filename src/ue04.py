@@ -2,8 +2,10 @@ import random
 
 
 def create_card_list(number_of_cards: int) -> [(int, str)]:  # type: ignore
+    if number_of_cards > 32:
+        raise ValueError('too many cards')
     colors = ('Pik', 'Kreuz', 'Herz', 'Karo')
-    all_cards = [(i, j) for i in range(1, 8) for j in colors]
+    all_cards = [(i, j) for i in range(1, 9) for j in colors]
     return random.sample(all_cards, number_of_cards)
 
 
@@ -30,17 +32,23 @@ def compare_two_cards_trump(card_one: (int, str), card_two: (int, str), trump: s
 
 
 def hand_out_cards(list_cards: [(int, str)], players: int, number_of_cards: int) -> [[(int, str)]]:  # type: ignore
-    player_map = {f'player_{i}': [] for i in range(players)}
+    if players * number_of_cards > len(list_cards):
+        raise ValueError('not enough cards')
+    player_list = [[] for _ in range(players)]
+
     for _ in range(number_of_cards):
-        for player in player_map:
+        for player in player_list:
             if not list_cards:
                 break
-            player_map[player].append(list_cards.pop())
-    return list(player_map.values())
+            player.append(list_cards.pop())
+    return player_list
 
 
 if __name__ == '__main__':
-    # print(create_card_list(4))
-    # print(shuffle_card_list(create_card_list(32)))
-    # print(compare_two_cards_trump((5, 'Herz'), (4, 'Herz')))
-    print(hand_out_cards(shuffle_card_list(create_card_list(10)), 4, 5))
+    try:
+        # print(create_card_list(33))
+        # print(shuffle_card_list(create_card_list(32)))
+        # print(compare_two_cards_trump((5, 'Herz'), (4, 'Herz')))
+        print(hand_out_cards(shuffle_card_list(create_card_list(21)), 4, 5))
+    except ValueError as e:
+        print(e)
