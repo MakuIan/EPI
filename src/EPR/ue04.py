@@ -1,5 +1,5 @@
 import random
-
+__author__ = '8175858, Braun'
 # my own error for exception handling
 
 
