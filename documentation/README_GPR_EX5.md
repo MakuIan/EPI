@@ -10,9 +10,9 @@ Output is done in the console.
 Testing the program:
 ====================
 
-Enter needle: c
+Enter needle: zy
 Enter haystack: abcdefghijklmnopqrstuvwxyz
-Output: 2
+Output: -1
 
 Enter needle: hi
 Enter haystack: abcdefghijklmnopqrstuvwxyz
