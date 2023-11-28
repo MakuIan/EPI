@@ -1,5 +1,5 @@
-import random
 __author__ = '8175858, Braun'
+import random
 # my own error for exception handling
 
 
@@ -18,6 +18,21 @@ def create_card_list(number_of_cards: int) -> [(int, str)]:  # type: ignore
     colors = ('Pik', 'Kreuz', 'Herz', 'Karo')
     all_cards = [(i, j) for i in range(1, 9) for j in colors]
     return random.sample(all_cards, number_of_cards)
+
+
+def create_card_list2(number_of_cards: int) -> [(int, str)]:  # type: ignore
+    """
+    creates a list of tuple's (cards), with the colors green, red, yellow, blue (in german) and of the range 1 to
+number_of_cards.
+
+    :param number_of_cards: number card of each type of cards
+    :return: [(int, str)] - list of all the card for a game, len of the list is number_of_cards * 4
+    """
+    list_cards = []
+    for i in range(1, number_of_cards + 1):
+        for j in ["Pik", "Kreuz", "Herz", "Karo"]:
+            list_cards.append((i, j))
+    return list_cards
 
 
 def shuffle_card_list(cards: [(int, str)]) -> [(int, str)]:  # type: ignore
@@ -51,7 +66,7 @@ def compare_two_cards_trump(card_one: (int, str), card_two: (int, str), trump: s
         return compare_two_cards(card_one, card_two)
 
 
-def hand_out_cards(list_cards: [(int, str)], players: int, number_of_cards: int) -> [[(int, str)]]:  # type: ignore
+def hand_out_cards_old(list_cards: [(int, str)], players: int, number_of_cards: int) -> [[(int, str)]]:
     '''
     hands out equal number of cards to the given number of players
     each player gets one card handed out at a time
@@ -66,6 +81,25 @@ def hand_out_cards(list_cards: [(int, str)], players: int, number_of_cards: int)
             if not list_cards:
                 break
             player.append(list_cards.pop())
+    return player_list
+
+
+def hand_out_cards(list_cards, players, number_of_cards):
+    '''
+    hands out equal number of cards to the given number of players
+    each player gets one card handed out at a time
+    raises an exception if there are not enough cards in the list
+    '''
+    if len(players) * number_of_cards > len(list_cards):
+        raise MyError('not enough cards')
+    player_list = {f'{players[i]}': []
+                   for i in range(0, len(players))}
+
+    for _ in range(number_of_cards):
+        for player_cards in player_list.values():
+            if not list_cards:
+                break
+            player_cards.append(list_cards.pop())
     return player_list
 
 
@@ -101,9 +135,9 @@ def main():
 
     try:
         print('hand_out_cards:')
-        print(hand_out_cards(card_list1, 2, 2))
-        print(hand_out_cards(card_list2, 2, 1))
-        print(hand_out_cards(card_list3, 4, 2))
+        print(hand_out_cards_old(card_list1, 2, 2))
+        print(hand_out_cards_old(card_list2, 2, 1))
+        print(hand_out_cards_old(card_list3, 4, 2))
     except MyError as e:
         print(e)
 
