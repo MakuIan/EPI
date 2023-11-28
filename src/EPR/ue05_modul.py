@@ -16,14 +16,15 @@ def load_players():
     while (i < 5):
         players.append(input(f'Player {i}: '))
         if i == 3:
-            continue_input = input('Do you want to add another player? (y/n) ')
-            if continue_input == 'y':
-                pass
-            elif continue_input == 'n':
-                break
-            else:
-                print('Invalid input! Aborting...')
-                break
+            while True:
+                continue_input = input(
+                    'Do you want to add another player? (y/n) ')
+                if continue_input == 'y':
+                    break
+                elif continue_input == 'n':
+                    return players
+                else:
+                    print('Invalid input! Try again.')
         i += 1
 
     return players
