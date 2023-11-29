@@ -94,19 +94,19 @@ def play_game(players: list, scores: {str: int}, all_hands: {str: list}) -> {str
         '''
         Determines the winner of the current trick and returns the index of the winner.
         '''
-        print('Current trick:', current_trick)
-        print('Trump:', trump)
-        winner = current_trick[0]
-        for card in enumerate(current_trick, start=1):
-            if card[1] == trump:
-                winner = card if card[0] > winner[0] else winner
-        winner_name = ''
-        for name, player_cards in all_hands.items():
-            for card in player_cards:
-                if winner == card:
-                    winner_name = name
-                    return players.index(winner_name)
-        return players.index(winner_name)
+        winner = current_trick[0][0]
+
+        for player_played_cards in current_trick:
+            for card in player_played_cards:
+                if card[1] == trump:
+                    winner = card if card[0] > winner[0] else winner
+        winner_index = 0
+        for plauer_played_cards in current_trick:
+            for card in plauer_played_cards:
+                if card == winner:
+                    winner_index = current_trick.index(plauer_played_cards)
+                    break
+        return winner_index
 
     def update_score(won_cards: list, player: str, scores: {str: int}) -> {str: int}:  # type: ignore # noqa
         '''
@@ -114,10 +114,16 @@ def play_game(players: list, scores: {str: int}, all_hands: {str: list}) -> {str
         Returns the new score for the winner of this trick .
         '''
         penalty_points = 0
-        for card in won_cards:
-            if card[1] == 'Kreuz':
-                penalty_points += 1
+        print('won_cards:', won_cards)
+        for cards in won_cards:
+            for card in cards:
+                if card[1] == 'Kreuz':
+                    penalty_points += 1
         scores[player] += penalty_points
+        # adding card to winners hand
+        flattened_list = [card for cards in won_cards for card in cards]
+        all_hands[player] += flattened_list
+        print('all_hands:', all_hands)
         return scores[player]
 
     # actual game
@@ -132,7 +138,7 @@ def play_game(players: list, scores: {str: int}, all_hands: {str: list}) -> {str
         print('Current player: ', playing_order[0])
         play = play_card(all_hands[playing_order[0]], '')
         trump, all_hands[playing_order[0]] = play[0][1], play[1]
-        current_trick = [play[0]]
+        current_trick = [[play[0]]]
         print('Trump:', trump)
         while True:
 
@@ -147,16 +153,20 @@ def play_game(players: list, scores: {str: int}, all_hands: {str: list}) -> {str
             if play[0][1] != trump:
                 break
             all_hands[playing_order[i]] = play[1]
-            current_trick.append(play[0])
+            if len(current_trick) <= 3:
+                current_trick.append([play[0]])
+            else:
+                current_trick[i].append(play[0])
 
             i = i + 1 if i < 2 else 0
             if play[0][1] != trump:
                 break
 
-        winner = get_winner(current_trick, trump)
-        print('Winner:', playing_order[winner])
+        winner_index = get_winner(current_trick, trump)
+        winner = playing_order[winner_index]
+        print('Winner:', playing_order[winner_index])
         scores[winner] = update_score(
-            current_trick, playing_order[winner], scores)
+            current_trick, winner, scores)
         trump = play[1]
     return scores
 
