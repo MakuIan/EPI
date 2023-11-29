@@ -23,14 +23,14 @@ def create_card_list(number_of_cards: int) -> [(int, str)]:  # type: ignore
 def create_card_list2(number_of_cards: int) -> [(int, str)]:  # type: ignore
     """
     creates a list of tuple's (cards), with the colors green, red, yellow, blue (in german) and of the range 1 to
-number_of_cards.
+    number_of_cards.
 
     :param number_of_cards: number card of each type of cards
     :return: [(int, str)] - list of all the card for a game, len of the list is number_of_cards * 4
     """
     list_cards = []
     for i in range(1, number_of_cards + 1):
-        for j in ["Pik", "Kreuz", "Herz", "Karo"]:
+        for j in ["Kreuz", "Herz", "Karo"]:
             list_cards.append((i, j))
     return list_cards
 
