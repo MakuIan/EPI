@@ -119,6 +119,7 @@ def play_game(players: list, scores: {str: int}, all_hands: {str: list}) -> {str
             for card in cards:
                 if card[1] == 'Kreuz':
                     penalty_points += 1
+        print('scores:', scores)
         scores[player] += penalty_points
         # adding card to winners hand
         flattened_list = [card for cards in won_cards for card in cards]
@@ -127,7 +128,7 @@ def play_game(players: list, scores: {str: int}, all_hands: {str: list}) -> {str
         return scores[player]
 
     # actual game
-    while any(all_hands[player] for player in players):
+    while any(all_hands[player] for player in players if all_hands[player] != []):
         # defining random playing order
         playing_order = players.copy()
         random.shuffle(playing_order)
@@ -136,8 +137,11 @@ def play_game(players: list, scores: {str: int}, all_hands: {str: list}) -> {str
         i = 1
         print('Playing order: ', playing_order)
         print('Current player: ', playing_order[0])
-        play = play_card(all_hands[playing_order[0]], '')
-        trump, all_hands[playing_order[0]] = play[0][1], play[1]
+        try:
+            play = play_card(all_hands[playing_order[0]], '')
+            trump, all_hands[playing_order[0]] = play[0][1], play[1]
+        except TypeError:
+            return scores
         current_trick = [[play[0]]]
         print('Trump:', trump)
         while True:
@@ -168,9 +172,20 @@ def play_game(players: list, scores: {str: int}, all_hands: {str: list}) -> {str
         scores[winner] = update_score(
             current_trick, winner, scores)
         trump = play[1]
+        print('Scores:', scores)
     return scores
 
 
+def determine_winner(scores: dict) -> list:
+    '''
+    Determines the winner of the game.
+    '''
+    return [winner for winner, score in scores.items() if
+            score == min(scores.values())]
+
+
 players = load_players()
-play_game(players, initialize_variables(players)
-          [0], initialize_variables(players)[1])
+game = play_game(players, initialize_variables(players)[0],
+                 initialize_variables(players)[1])
+print('Game finished!', game)
+print(determine_winner(game))
