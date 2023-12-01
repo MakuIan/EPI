@@ -66,6 +66,7 @@ def compare_two_cards_trump(card_one: (int, str), card_two: (int, str), trump: s
         return compare_two_cards(card_one, card_two)
 
 
+# old version
 def hand_out_cards_old(list_cards: [(int, str)], players: int, number_of_cards: int) -> [[(int, str)]]:
     '''
     hands out equal number of cards to the given number of players
@@ -84,6 +85,7 @@ def hand_out_cards_old(list_cards: [(int, str)], players: int, number_of_cards: 
     return player_list
 
 
+# version with dictionary as return value
 def hand_out_cards(list_cards, players, number_of_cards):
     '''
     hands out equal number of cards to the given number of players
