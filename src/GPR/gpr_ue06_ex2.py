@@ -1,24 +1,5 @@
 author__ = '8175858, Braun'
 
-# Ex. 1)
-
-
-def unicode_strings(a: int, b: int) -> str:
-    code = ('\u2600', '\u2601', '\u2602', '\u2603', '\u2604',
-            '\u262E', '\u262F', '\u263A', '\u263B', '\u263C')
-    c = a + b
-
-    def own_decode(num: int) -> str:
-        s = ''
-        while (num > 0):
-            r = num % 10
-            num = num // 10
-            s = code[r] + s
-        return s
-    print(own_decode(a))
-
-
-print(unicode_strings(1, 456))
 # Ex. 2)
 # a)
 # Sorted() accepts an iterable (sets, generators, lists, dictionaries, strings) and returns a new sorted list.
