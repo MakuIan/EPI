@@ -7,6 +7,8 @@ __author__ = '8175858, Braun'
 def task2(epr, gpr, zbnp=50):
     if epr > 110 or gpr > 110:
         return 'Invalid input: epr and gpr must be less than 110!'
+    if epr < 0 or gpr < 0:
+        return 'Invalid input: epr and gpr must be greater than or equal 0!'
     return round(min(zbnp / 4, (epr + gpr) / 14), 1)
 
 # Test cases:
@@ -35,8 +37,12 @@ def task3(num1, num2):
 
 
 if __name__ == '__main__':
-    print(f'task2:{task2(110, 110)}')
-    is_divisible = task3(7, 8)
+    epr = eval(input('Enter EPR Bonuspoints: '))
+    gpr = eval(input('Enter GPR Bonuspoints: '))
+    print(f'{task2(epr, gpr)} Bonuspoints given!')
+    num1 = int(input('Enter first number: '))
+    num2 = int(input('Enter second number: '))
+    is_divisible = task3(num1, num2)
     print(f'min Value:{is_divisible["minimal"]}')
     print(f'is divisible by 2:{is_divisible["2"]} ')
     print(f'is divisible by 4:{is_divisible["4"]} ')

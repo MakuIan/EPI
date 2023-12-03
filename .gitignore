@@ -7,3 +7,6 @@ pyworkshop.code-workspace
 
 #ignore .vscode
 .vscode/
+
+#ignore .DS_Store
+.DS_Store
