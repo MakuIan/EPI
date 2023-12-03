@@ -1,8 +1,13 @@
-author__ = '8175858, Braun'
+'''
+GPR Exercise 6  - Ex. 2
+'''
+
+__author__ = '8175858, Braun'
 
 # Ex. 2)
 # a)
-# Sorted() accepts an iterable (sets, generators, lists, dictionaries, strings) and returns a new sorted list.
+# Sorted() accepts an iterable (sets, generators, lists, dictionaries, strings)
+# and returns a new sorted list.
 
 # List() accepts an iterable and returns it as a list.
 
@@ -35,6 +40,8 @@ except TypeError as e:
     print(e)
 print(list(multiple3))
 
-# sorted() can't sort a set with multiple differnet types It would work with int and bool, because bool is a subclass of int.
+# sorted() can't sort a set with multiple differnet types It would work with int and bool,
+# because bool is a subclass of int.
 # list() might not return a liste with the elements in the same order as seen with list(multiple3)
-# (list() : for all Sets where order is not important, sorted() : for all Sets with the same type that can be compated)
+# (list() : for all Sets where order is not important,
+# sorted() : for all Sets with the same type that can be compated)
