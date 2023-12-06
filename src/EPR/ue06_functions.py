@@ -32,6 +32,7 @@ def is_tree(graph) -> bool:
         if graph.is_vertex_isolated(vertice):
             return False
     ugraph = graph.convert_to_undirected()
+    print(graph.items)
     vertices = len(ugraph.keys())
     print('ugraph:', ugraph)
     edges = sum(len(edges) for edges in ugraph.values()) // 2
@@ -40,8 +41,47 @@ def is_tree(graph) -> bool:
     return graph.isCyclic()
 
 
+def get_leafs(graph):
+    '''
+    Takes in a graph and returns a set of leafs.
+    '''
+    leafs = set()
+    for vertex, edges in graph.items.items():
+        print(len(edges))
+        if (len(edges) == 0):
+            leafs.add(vertex)
+    return leafs
+
+
+def has_root(graph):
+    '''
+    Takes in a graph and returns True if it has a root, False otherwise.
+    '''
+    in_degree_counter = {vertex: 0 for vertex in graph}
+    for vertex, edges in graph.items():
+        for edge in edges:
+            in_degree_counter[edge] += 1
+
+    root_found = False
+    found_vertex = None
+    for vertex in graph:
+        if in_degree_counter[vertex] == 0:
+            if root_found:
+                return False, None  # more than one root
+            root_found = True
+            found_vertex = vertex
+    return root_found, found_vertex
+
+
+# {0: [1, 2], 1: [], 2: []}
+# {0:[1,2],1:[],2:[],3:[2]}
+# {'A': ['B'], 'B': ['C'], 'C': ['A', 'D'], 'D': ['A']}
 if __name__ == '__main__':
     graph = get_graph()
     print(graph.items)
-    print(graph.convert_to_undirected())
     print(is_tree(graph))
+    print(graph.convert_to_undirected())
+    print(get_leafs(graph))
+    print('has root')
+    has_root_result = has_root(graph.items)
+    print(has_root_result)

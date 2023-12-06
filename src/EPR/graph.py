@@ -5,6 +5,8 @@
 #     visited[curr] = True
 #     flag = False
 #     for
+import copy
+
 
 class Graph:
     def __init__(self):
@@ -24,7 +26,7 @@ class Graph:
         return len(list(self.items.keys()))
 
     def convert_to_undirected(self):
-        undirected_graph = {v: e for v, e in self.items.items()}
+        undirected_graph = copy.deepcopy(self.items)
         for vertice, edges in self.items.items():
             for edge in edges:
                 if edge not in undirected_graph:
