@@ -27,25 +27,34 @@ class Graph:
         undirected_graph = {v: e for v, e in self.items.items()}
         for vertice, edges in self.items.items():
             for edge in edges:
+                if edge not in undirected_graph:
+                    undirected_graph[edge] = []
                 if vertice not in undirected_graph[edge]:
                     undirected_graph[edge].append(vertice)
         return undirected_graph
 
     def isCyclic_util(self, v, visited, parent, ugraph):
         visited[v] = True
-        for edges in ugraph[v]:
-            if visited[edges] is False:
-                if self.isCyclic_util(edges, visited, v, ugraph) is True:
+        for edge in ugraph[v]:
+            if not visited[edge] is False:
+                if self.isCyclic_util(edge, visited, v, ugraph):
                     return True
-            elif parent != edges:
+            elif parent != edge:
                 return True
         return False
 
     def isCyclic(self):
-        visited = {vertice: False for vertice in self.items}
         ugraph = self.convert_to_undirected()
+        visited = {vertice: False for vertice in ugraph}
         for vertex, edges in ugraph.items():
-            if visited[vertex] is False:
-                if self.isCyclic_util(vertex, visited, -1, ugraph) is True:
+            if not visited[vertex]:
+                if self.isCyclic_util(vertex, visited, -1, ugraph):
                     return True
         return False
+
+    def is_vertex_isolated(self, vertex):
+        ugraph = self.convert_to_undirected()
+        for edges in ugraph.values():
+            if vertex in edges:
+                return False
+        return True

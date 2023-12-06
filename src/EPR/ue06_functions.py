@@ -3,6 +3,7 @@ EPR 06 - Aufgabe 2
 '''
 __author__ = '8175858, Braun'
 from graph import Graph
+import ast
 
 
 def get_graph():
@@ -12,10 +13,14 @@ def get_graph():
     graph_str = input('Please enter a graph in form of an adjacency list:')
 
     graph = Graph()
-
-    graph.items = eval(graph_str)
-    if not isinstance(graph.items, dict):
-        raise TypeError
+    try:
+        graph.items = ast.literal_eval(graph_str)
+        if not isinstance(graph.items, dict):
+            print('Invalid input.')
+            return get_graph()
+    except (SyntaxError, TypeError):
+        print('Invalid input.')
+        return get_graph()
     return graph
 
 
@@ -23,21 +28,20 @@ def is_tree(graph) -> bool:
     '''
     Takes in a graph and returns True if it is a tree, False otherwise.
     '''
-    # if any(value == [] for value in graph.items.values()):
-    #     return False
-    vertices = graph.get_num_vertices()
-    edges = graph.get_num_edges()
-    # if edges != vertices - 1:
-    #     return False
+    for vertice in graph.items.keys():
+        if graph.is_vertex_isolated(vertice):
+            return False
+    ugraph = graph.convert_to_undirected()
+    vertices = len(ugraph.keys())
+    print('ugraph:', ugraph)
+    edges = sum(len(edges) for edges in ugraph.values()) // 2
+    if edges != vertices - 1:
+        return False
     return graph.isCyclic()
 
 
 if __name__ == '__main__':
-    try:
-        graph = get_graph()
-        print(graph.items)
-        print(is_tree(graph))
-        print(graph.convert_to_undirected())
-    except TypeError as e:
-        print('Please enter a valid graph.')
-        print(e)
+    graph = get_graph()
+    print(graph.items)
+    print(graph.convert_to_undirected())
+    print(is_tree(graph))
