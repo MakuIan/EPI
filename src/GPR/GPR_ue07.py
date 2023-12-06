@@ -28,6 +28,12 @@ def get_best_students(students: dict) -> dict:
     return best_students
 
 
+def christmas_storie(n: int, memo: dict) -> int:
+
+    if n == 0:
+        return 0
+
+
 if __name__ == '__main__':
     input_dict = {'mark': ['EPI', (1, 2, 3, 4, 5)],
                   'peter': ['EPI', (2, 2, 3, 4, 5)],
