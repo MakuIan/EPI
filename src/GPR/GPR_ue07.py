@@ -28,10 +28,20 @@ def get_best_students(students: dict) -> dict:
     return best_students
 
 
-def christmas_storie(n: int, memo: dict) -> int:
-
+def christmas_storie(n: int, memo: dict = {}) -> int:
+    '''
+    Uses Tribonacci to calculate the number of possible ways to climb a stair with n steps.
+    Dict memo is used to store already calculated values.
+    '''
+    if n in (2, 1):
+        return 1
     if n == 0:
         return 0
+    if n not in memo:
+        result = christmas_storie(n-1, memo) + christmas_storie(
+            n-2, memo) + christmas_storie(n-3, memo)
+        memo[n] = result
+    return memo[n]
 
 
 if __name__ == '__main__':
@@ -46,3 +56,5 @@ if __name__ == '__main__':
                   'hans6': ['EPI', (1, 1, 1, 1, 1)],
                   'hans7': ['EPI', (1, 2, 3, 5, 6)]}
     print(get_best_students(input_dict))
+    print(christmas_storie(5))
+    print(christmas_storie(6))

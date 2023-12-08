@@ -2,13 +2,15 @@
 EPR 06 - Aufgabe 2
 '''
 __author__ = '8175858, Braun'
-from graph import Graph
 import ast
+from graph import Graph
 
 
 def get_graph():
     '''
     Takes in a graph in form of an adjacency list and returns it.
+    Uses ast.literal_eval to convert the input string to a dictionary instead of just eval,
+    because eval only works with numbers
     '''
     graph_str = input('Please enter a graph in form of an adjacency list:')
 
@@ -32,22 +34,19 @@ def is_tree(graph) -> bool:
         if graph.is_vertex_isolated(vertice):
             return False
     ugraph = graph.convert_to_undirected()
-    print(graph.items)
     vertices = len(ugraph.keys())
-    print('ugraph:', ugraph)
     edges = sum(len(edges) for edges in ugraph.values()) // 2
     if edges != vertices - 1:
         return False
-    return graph.isCyclic()
+    return graph.is_cyclic()
 
 
 def get_leafs(graph):
     '''
-    Takes in a graph and returns a set of leafs.
+    Takes in a graph and returns a set of leafs as a set
     '''
     leafs = set()
     for vertex, edges in graph.items.items():
-        print(len(edges))
         if (len(edges) == 0):
             leafs.add(vertex)
     return leafs
@@ -78,10 +77,12 @@ def has_root(graph):
 # {'A': ['B'], 'B': ['C'], 'C': ['A', 'D'], 'D': ['A']}
 if __name__ == '__main__':
     graph = get_graph()
-    print(graph.items)
-    print(is_tree(graph))
-    print(graph.convert_to_undirected())
-    print(get_leafs(graph))
-    print('has root')
-    has_root_result = has_root(graph.items)
-    print(has_root_result)
+    print('your graph:', graph.items)
+    print('graph is tree:', is_tree(graph))
+    print('leafs:', get_leafs(graph))
+    root = has_root(graph.items)
+    print('has root:', root[0])
+    if root[0]:
+        print(f'Node {root[1]} is root.')
+    else:
+        print('No root found.')
