@@ -3,6 +3,7 @@ GPR - Übung 07
 '''
 
 __author__ = '8175858, Braun'
+import ast
 
 
 def get_best_students(students: dict) -> dict:
@@ -11,21 +12,25 @@ def get_best_students(students: dict) -> dict:
     returns a dictionary of the best students.
     '''
 
-    best_grades = {}
+    best_students = list()
     for key, value in students.items():
         if value[0] == 'EPI':
-            average = sum(value[1]) / len(value[1])
-            if len(best_grades) < 3:
-                best_grades[key] = average
+
+            best_grade = min(value[1])
+            if len(best_students) < 3:
+                best_students.append(key)
             else:
-                worst_grade = max(best_grades.values())
-                if average < worst_grade:
-                    worst_grade_key = min(
-                        best_grades, key=lambda k: best_grades[k])
-                    best_grades.pop(worst_grade_key)
-                    best_grades[key] = average
-    best_students = {key: students[key] for key in best_grades}
-    return best_students
+                worst_student = best_students[0]
+                for student in enumerate(best_students, start=1):
+
+                    if min(students[student[1]][1]) > min(students[worst_student][1]):
+                        worst_student = student[1]
+
+                if best_grade < min(students[worst_student][1]):
+                    best_students.remove(worst_student)
+                    best_students.append(key)
+
+    return {student: students[student] for student in best_students}
 
 
 def christmas_storie(n: int, memo: dict = {}) -> int:
@@ -45,16 +50,17 @@ def christmas_storie(n: int, memo: dict = {}) -> int:
 
 
 if __name__ == '__main__':
-    input_dict = {'mark': ['EPI', (1, 2, 3, 4, 5)],
-                  'peter': ['EPI', (2, 2, 3, 4, 5)],
-                  'hans': ['EPI', (3, 2, 3, 4, 5)],
-                  'michael': ['EPI', (4, 2, 3, 4, 5)],
-                  'hans2': ['EPI', (5, 2, 2, 4, 5)],
-                  'hans3': ['EPI', (6, 2, 1, 4, 5)],
-                  'hans4': ['EPI', (6, 2, 4, 4, 5)],
-                  'hans5': ['EPI', (1, 1, 2, 4, 5)],
-                  'hans6': ['EPI', (1, 1, 1, 1, 1)],
-                  'hans7': ['EPI', (1, 2, 3, 5, 6)]}
+    try:
+        # Example input {'Alice': ['ARA', (1, 2, 4)], 'Bob': ['EPI', (5)],
+        # 'Charlie': ['EPI', (2.2, 1)], 'David': ['EPI', (5, 5, 5)], 'Eve': ['EPI', (5,5,1)]}
+
+        input_dict = ast.literal_eval(input('Enter a dictionary: '))
+    except Exception:
+        print('Invalid input.')
+    # turning int grades into tuples (5) => (5,)
+    for value in input_dict.values():
+        if isinstance(value[1], int):
+            value[1] = (value[1],)
     print(get_best_students(input_dict))
-    print(christmas_storie(5))
-    print(christmas_storie(6))
+    print('Case 5:', christmas_storie(5))
+    print('Case 6:', christmas_storie(6))

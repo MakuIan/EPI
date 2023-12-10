@@ -1,11 +1,10 @@
-# def isCylclic_util(adj:list, visited:list, curr:int) -> bool :
-#     if visited[curr] == True:
-#         return True
+'''
+Graph class for EPR UE06
+'''
 
-#     visited[curr] = True
-#     flag = False
-#     for
 import copy
+
+__author = '8175858, Braun'
 
 
 class Graph:
@@ -61,11 +60,12 @@ class Graph:
         Visits every neighbour of a vertex using DFS.
         '''
         visited[v] = True
-        for edge in ugraph[v]:
-            if not visited[edge] is False:
-                if self.is_cyclic_util(edge, visited, v, ugraph):
+
+        for neighbor in ugraph[v]:
+            if not visited[neighbor]:
+                if self.is_cyclic_util(neighbor, visited, v, ugraph):
                     return True
-            elif parent != edge:
+            elif parent != neighbor:
                 return True
         return False
 
@@ -76,10 +76,10 @@ class Graph:
         Visits every vertex.
         '''
         ugraph = self.convert_to_undirected()
-        visited = {vertice: False for vertice in ugraph}
         for vertex, edges in ugraph.items():
+            visited = {vertice: False for vertice in ugraph}
             if not visited[vertex]:
-                if self.is_cyclic_util(vertex, visited, -1, ugraph):
+                if self.is_cyclic_util(vertex, visited, None, ugraph):
                     return True
         return False
 

@@ -1,5 +1,5 @@
 '''
-EPR 06 - Aufgabe 2
+EPR 06 functions
 '''
 __author__ = '8175858, Braun'
 import ast
@@ -38,7 +38,7 @@ def is_tree(graph) -> bool:
     edges = sum(len(edges) for edges in ugraph.values()) // 2
     if edges != vertices - 1:
         return False
-    return graph.is_cyclic()
+    return not graph.is_cyclic()
 
 
 def get_leafs(graph):
@@ -65,24 +65,6 @@ def has_root(graph):
     found_vertex = None
     for vertex in graph:
         if in_degree_counter[vertex] == 0:
-            if root_found:
-                return False, None  # more than one root
             root_found = True
-            found_vertex = vertex
+            return root_found, vertex
     return root_found, found_vertex
-
-
-# {0: [1, 2], 1: [], 2: []}
-# {0:[1,2],1:[],2:[],3:[2]}
-# {'A': ['B'], 'B': ['C'], 'C': ['A', 'D'], 'D': ['A']}
-if __name__ == '__main__':
-    graph = get_graph()
-    print('your graph:', graph.items)
-    print('graph is tree:', is_tree(graph))
-    print('leafs:', get_leafs(graph))
-    root = has_root(graph.items)
-    print('has root:', root[0])
-    if root[0]:
-        print(f'Node {root[1]} is root.')
-    else:
-        print('No root found.')
