@@ -39,6 +39,7 @@ def find_best_way(matrix, i=0, j=0, visited=set()):
     if i >= len(matrix) or j >= len(matrix[i]) - 1:
         return 0
     cost = matrix[i][j]
+    # TODO: check if we reached the end
     if i == len(matrix) - 1 and j == len(matrix[i]) - 1:
         return cost
 
