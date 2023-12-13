@@ -29,26 +29,27 @@ def greedy_traversal(matrix):
     return way
 
 
-def find_best_way(matrix, i=0, j=0, position=[]):
+def find_best_way(matrix, i=0, j=0, visited=set()):
     # Base Case
-    print('matrix', matrix, 'i', i, 'j', j)
+    print('i', i, 'j', j)
+    if (i, j) in visited:
+        return 0
     if i < 0 or j < 0:
         return 0
-    if i >= len(matrix) or j >= len(matrix[i]):
+    if i >= len(matrix) or j >= len(matrix[i]) - 1:
         return 0
     cost = matrix[i][j]
     if i == len(matrix) - 1 and j == len(matrix[i]) - 1:
         return cost
-    position.append((i, j))
-    # reached endpoint
 
+    visited.add((i, j))
     # Recursive Case
-    matrix[i].pop(j)
-    down = cost + find_best_way(matrix, i+1, j, position)
-    up = cost + find_best_way(matrix, i-1, j, position)
-    left = cost + find_best_way(matrix, i, j - 1, position)
-    right = cost + find_best_way(matrix, i, j + 1, position)
+    down = cost + find_best_way(matrix, i+1, j, visited)
+    up = cost + find_best_way(matrix, i-1, j, visited)
+    left = cost + find_best_way(matrix, i, j - 1, visited)
+    right = cost + find_best_way(matrix, i, j + 1, visited)
 
+    visited.remove((i, j))
     return min(down, up, left, right)
 
 
