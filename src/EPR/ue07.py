@@ -32,13 +32,13 @@ def greedy_traversal(matrix):
 def find_best_way(matrix, i=0, j=0, position=[]):
     # Base Case
     print('matrix', matrix, 'i', i, 'j', j)
-    if i == len(matrix) - 1 and j == len(matrix[i]):
-        return matrix[i][j]
     if i < 0 or j < 0:
         return 0
     if i >= len(matrix) or j >= len(matrix[i]):
         return 0
     cost = matrix[i][j]
+    if i == len(matrix) - 1 and j == len(matrix[i]) - 1:
+        return cost
     position.append((i, j))
     # reached endpoint
 
