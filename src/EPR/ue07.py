@@ -1,6 +1,27 @@
 import copy
 
 
+def find_smallest_neighbour(matrix, i, j, visited):
+    '''
+    Find the smallest neighbour of a given position in a matrix
+    '''
+    smallest_neighbour = 10
+    smallest_neighbour_index = tuple()
+
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+    for di, dj in directions:
+        ni, nj = i + di, j + dj
+        if 0 <= ni < len(matrix) and 0 <= nj < len(matrix[i]):
+
+            if matrix[ni][nj] < smallest_neighbour and (ni, nj) not in visited:
+
+                smallest_neighbour = matrix[ni][nj]
+                smallest_neighbour_index = (ni, nj)
+
+    return smallest_neighbour_index
+
+
 def greedy_traversal(matrix):
     '''
     Traversal through a matrix with a greedy algorithm
@@ -13,19 +34,26 @@ def greedy_traversal(matrix):
 
     >>> greedy_traversal([[5 , 3], [-6 , 7]])
     [(0, 0), (1, 0), (1, 1)]
+
     '''
     i = j = 0
     way = []
-    while i < len(matrix):
+    visited = set()
+
+    while i < len(matrix) and j < len(matrix[i]):
         way.append((i, j))
-        if j == len(matrix[i]) - 1:
-            i += 1
-        elif i == len(matrix) - 1:
+        visited.add((i, j))
+        if i == len(matrix) - 1:
             j += 1
-        elif matrix[i][j+1] > matrix[i+1][j]:
+        elif j == len(matrix[i]) - 1:
             i += 1
         else:
-            j += 1
+            neighbor = find_smallest_neighbour(matrix, i, j, visited)
+            if not neighbor:
+                break
+            i, j = neighbor if neighbor else (i, j)
+    if way[-1] != (len(matrix) - 1, len(matrix[-1]) - 1):
+        print('No way found')
     return way
 
 
@@ -55,7 +83,9 @@ def find_best_way(matrix, i=0, j=0, visited=set()):
 
 
 if __name__ == '__main__':
-    # import doctest
-    # doctest.testmod()
-    matrix = [[4, 0, 8], [-3, -4, 7], [-8, -1, 7]]
-    print(find_best_way(matrix))
+    import doctest
+    doctest.testmod()
+    # matrix = [[4, 0, 8], [-3, -4, 7], [-8, -1, 7]]
+    # print(greedy_traversal(matrix))
+    # matrix = [[4, 0, 8], [-3, -4, 7], [-8, -1, 7]]
+    # print(find_best_way(matrix))
