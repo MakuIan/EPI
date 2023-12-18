@@ -1,4 +1,3 @@
-import copy
 
 
 def find_smallest_neighbour(matrix, i, j, visited):
@@ -57,35 +56,60 @@ def greedy_traversal(matrix):
     return way
 
 
-def find_best_way(matrix, i=0, j=0, visited=set()):
+def find_best_way(matrix, i=0, j=0, visited=set(), way=None):
+    '''
+    Find the best way through a matrix with a brute force approach
+    '''
     # Base Case
-    print('i', i, 'j', j)
+    if way is None:
+        way = []
+
     if (i, j) in visited:
-        return 0
-    if i < 0 or j < 0:
-        return 0
-    if i >= len(matrix) or j >= len(matrix[i]) - 1:
-        return 0
+        # Return infinity to avoid revisiting already visited cells
+        return float('inf'), way
+
+    if i < 0:
+        return float('inf'), way
+    if j < 0:
+        return float('inf'), way
+    if i >= len(matrix):
+        return float('inf'), way
+    if j >= len(matrix[i]):
+        return float('inf'), way
+
     cost = matrix[i][j]
-    # TODO: check if we reached the end
+    way.append([i, j])
+
+    # Check if we reached the end
     if i == len(matrix) - 1 and j == len(matrix[i]) - 1:
-        return cost
+        return cost, way
 
     visited.add((i, j))
     # Recursive Case
-    down = cost + find_best_way(matrix, i+1, j, visited)
-    up = cost + find_best_way(matrix, i-1, j, visited)
-    left = cost + find_best_way(matrix, i, j - 1, visited)
-    right = cost + find_best_way(matrix, i, j + 1, visited)
+    down_cost, down_way = find_best_way(matrix, i+1, j, visited, way.copy())
+    up_cost, up_way = find_best_way(matrix, i-1, j, visited, way.copy())
+    left_cost, left_way = find_best_way(matrix, i, j - 1, visited, way.copy())
+    right_cost, right_way = find_best_way(
+        matrix, i, j + 1, visited, way.copy())
 
     visited.remove((i, j))
-    return min(down, up, left, right)
+
+    # Find the minimum cost among the possible moves
+    min_cost, min_way = min(
+        (down_cost, down_way),
+        (up_cost, up_way),
+        (left_cost, left_way),
+        (right_cost, right_way),
+        key=lambda x: x[0]
+    )
+
+    return cost + min_cost, min_way
 
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+    # import doctest
+    # doctest.testmod()
     # matrix = [[4, 0, 8], [-3, -4, 7], [-8, -1, 7]]
     # print(greedy_traversal(matrix))
-    # matrix = [[4, 0, 8], [-3, -4, 7], [-8, -1, 7]]
-    # print(find_best_way(matrix))
+    matrix = [[4, 0, 8], [-3, -4, 7], [-8, -1, 7]]
+    print(find_best_way(matrix))
