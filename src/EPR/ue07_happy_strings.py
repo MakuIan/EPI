@@ -19,19 +19,12 @@ def is_happy_string(s):
     return True
 
 
-def traverse_string(s, i, happy_pairs):
-    ''' Helper function to traverse a string'''
-    if i < 0:
-        return ''
-    return traverse_string(s, i - 1, happy_pairs) + s[i]
-
-
 def find_happy_pairs_helper(s, i, happy_pairs):
     ''' Helper function to find all happy pairs in a string'''
     n = len(s)
     if i >= n:
         return is_happy_string(s)
-    string = traverse_string(s, i, happy_pairs)
+    string = s[:i + 1]
 
     if is_happy_string(string):
         happy_pairs.add(string)
