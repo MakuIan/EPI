@@ -1,3 +1,8 @@
+'''
+EPR 7 - Exercise 1 and 2
+'''
+
+__author__ = "8168265, Karabacak, 8175858, Braun"
 
 
 def find_smallest_neighbour(matrix, i, j, visited):
@@ -8,7 +13,6 @@ def find_smallest_neighbour(matrix, i, j, visited):
     smallest_neighbour_index = tuple()
 
     directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-
     for di, dj in directions:
         ni, nj = i + di, j + dj
         if 0 <= ni < len(matrix) and 0 <= nj < len(matrix[i]):
@@ -59,6 +63,15 @@ def greedy_traversal(matrix):
 def find_best_way(matrix, i=0, j=0, visited=set(), way=None):
     '''
     Find the best way through a matrix with a brute force approach
+
+    >>> find_best_way([[5 , 3], [-6 , 7]])
+    (6, [(0, 0), (1, 0), (1, 1)])
+
+    >>> find_best_way([[2 , 9, -4], [-7 , 6, 8], [-3 , 1, 5]])
+    (-2, [(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)])
+
+    >>> find_best_way([[5 , 6, 3], [9 , 8, 3], [4 , 4, 2]])
+    (19, [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2)])
     '''
     # Base Case
     if way is None:
@@ -78,7 +91,7 @@ def find_best_way(matrix, i=0, j=0, visited=set(), way=None):
         return float('inf'), way
 
     cost = matrix[i][j]
-    way.append([i, j])
+    way.append((i, j))
 
     # Check if we reached the end
     if i == len(matrix) - 1 and j == len(matrix[i]) - 1:
@@ -107,9 +120,6 @@ def find_best_way(matrix, i=0, j=0, visited=set(), way=None):
 
 
 if __name__ == '__main__':
-    # import doctest
-    # doctest.testmod()
-    # matrix = [[4, 0, 8], [-3, -4, 7], [-8, -1, 7]]
-    # print(greedy_traversal(matrix))
-    matrix = [[4, 0, 8], [-3, -4, 7], [-8, -1, 7]]
-    print(find_best_way(matrix))
+
+    import doctest
+    doctest.testmod()
