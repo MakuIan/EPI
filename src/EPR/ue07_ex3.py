@@ -1,10 +1,10 @@
 '''
 EPR 7 - Exercise 3
 '''
+__author__ = "8168265, Karabacak, 8175858, Braun"
 
-import ue07 as f
 import timeit
-author = "8168265, Karabacak, 8175858, Braun"
+import ue07 as f
 
 
 if __name__ == '__main__':

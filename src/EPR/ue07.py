@@ -43,18 +43,20 @@ def greedy_traversal(matrix):
     way = []
     visited = set()
 
-    while i < len(matrix) and j < len(matrix[i]):
+    while i < len(matrix) - 1 or j < len(matrix[i]) - 1:
         way.append((i, j))
         visited.add((i, j))
-        if i == len(matrix) - 1:
+
+        if i == len(matrix) - 1 and j == len(matrix[i]) - 2:
             j += 1
-        elif j == len(matrix[i]) - 1:
+        elif j == len(matrix[i]) - 1 and i == len(matrix) - 2:
             i += 1
         else:
             neighbor = find_smallest_neighbour(matrix, i, j, visited)
             if not neighbor:
                 break
             i, j = neighbor if neighbor else (i, j)
+    way.append((i, j))
     if way[-1] != (len(matrix) - 1, len(matrix[-1]) - 1):
         print('No way found')
     return way
