@@ -75,10 +75,10 @@ def find_best_way(matrix, i=0, j=0, visited=set(), way=None):
     >>> find_best_way([[5 , 6, 3], [9 , 8, 3], [4 , 4, 2]])
     (19, [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2)])
     '''
-    # Base Case
     if way is None:
         way = []
 
+    # Base Cases
     if (i, j) in visited:
         # Return infinity to avoid revisiting already visited cells
         return float('inf'), way
@@ -100,7 +100,7 @@ def find_best_way(matrix, i=0, j=0, visited=set(), way=None):
         return cost, way
 
     visited.add((i, j))
-    # Recursive Case
+    # Recursive Cases
     down_cost, down_way = find_best_way(matrix, i+1, j, visited, way.copy())
     up_cost, up_way = find_best_way(matrix, i-1, j, visited, way.copy())
     left_cost, left_way = find_best_way(matrix, i, j - 1, visited, way.copy())

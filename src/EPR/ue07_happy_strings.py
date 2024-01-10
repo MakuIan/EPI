@@ -5,7 +5,7 @@ Implementation of the happy strings problem.
 __author__ = '8175858, Braun'
 
 
-def is_happy_string(s):
+def is_happy_string(s: str):
     ''' Function to check if a string is happy'''
     memo = {}
     for c in s:
@@ -19,7 +19,7 @@ def is_happy_string(s):
     return True
 
 
-def find_happy_pairs_helper(s, i, happy_pairs):
+def find_happy_pairs_helper(s: str, i: int, happy_pairs: set):
     ''' Helper function to find all happy pairs in a string'''
     n = len(s)
     if i >= n:
@@ -31,7 +31,7 @@ def find_happy_pairs_helper(s, i, happy_pairs):
     return find_happy_pairs_helper(s, i + 1, happy_pairs)
 
 
-def find_happy_pairs(s):
+def find_happy_pairs(s: str):
     ''' Function to find all happy pairs in a string'''
     n = len(s)
     happy_pairs = set()
@@ -41,6 +41,6 @@ def find_happy_pairs(s):
 
 
 if __name__ == '__main__':
-    S = '20230322'
-    result = find_happy_pairs(S)
-    print(result)
+    tests = ('20230322', '3190394', '1234556',)
+    for test in tests:
+        print(test, '=', find_happy_pairs(test))
