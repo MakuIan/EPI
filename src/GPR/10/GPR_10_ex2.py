@@ -1,5 +1,5 @@
 '''
-GPR - Übung 10
+GPR - Übung 10 Ex 2
 '''
 
 __author__ = '8175858, Braun'
