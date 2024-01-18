@@ -36,18 +36,21 @@ def build_huffman_tree():
             return node
         return None
     root = Node(1)
+    # left nodes
     root.left = Node(0.393)
     root.left.left = Node(0.206)
     root.left.right = Node(0.187)
     root.left.right.left = Node(0.112)
     root.left.right.right = Node(0.075)
 
+    # right nodes
     right_nodes = [0.578,
                    0.411, 0.167,
                    0.243, 0.168, 0.121, 0.046,
                    0.131, 0.112, 0.094, 0.074, 0.074, 0.074, 0.028, 0.018,
                    0.075, 0.056, 0.056, 0.056, 0.047, 0.047, 0.037, 0.037, 0.037, 0.037, 0.028, 0.019, 0.019, 0.009, 0.009, 0.009]
     root.right = list_to_binary_tree(right_nodes)
+
     return root
 
 
