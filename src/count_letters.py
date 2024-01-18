@@ -12,7 +12,7 @@ def count_letters(text):
 
 
 def display_counts(counts):
-    """Display the letter counts in a GUI window."""
+    """Display the letter counts in a text file."""
     with open('src/letter_counts.txt', 'w') as file:
         for letter, count in sorted(counts.items()):
             file.write(f'{letter}: {count}\n')
