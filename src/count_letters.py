@@ -18,7 +18,7 @@ def count_letters(text):
         def entropie_formula(x): return -1 * x * math.log2(x)
         count.append(round(entropie_formula(count[1]), 3))
     huffman_codes = ['00', '11010', '10111', '11100', '10110', '011', '11111', '11001',
-                     '10100', '10001', '11101', '10101', '11000', '000', '10011', '10010', '11011', '10000', '10111']
+                     '10100', '10001', '11101', '10101', '11000', '010', '10011', '10010', '11011', '10000', '11110']
     for letter, count in sorted(counts.items()):
         count.append(huffman_codes.pop(0))
         count.append(round(len(count[3]) * count[1], 3))
