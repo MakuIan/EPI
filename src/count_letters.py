@@ -19,6 +19,6 @@ def display_counts(counts):
 
 
 if __name__ == '__main__':
-    text = 'One Ring to rule them all, One Ring to find them, One Ring to bring them all, and in the darkness bind them'
-    counts = count_letters(text)
-    display_counts(counts)
+    QUOTE = 'One Ring to rule them all, One Ring to find them, One Ring to bring them all, and in the darkness bind them'
+    counts_dict = count_letters(QUOTE)
+    display_counts(counts_dict)
