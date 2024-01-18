@@ -5,6 +5,8 @@ GPR - Übung 07
 __author__ = '8175858, Braun'
 import ast
 
+# Exercise 1
+
 
 def get_best_students(students: dict) -> dict:
     '''
@@ -32,6 +34,8 @@ def get_best_students(students: dict) -> dict:
 
     return {student: students[student] for student in best_students}
 
+# Exercise 2
+
 
 def christmas_storie(n: int, memo: dict = {}) -> int:
     '''
@@ -50,10 +54,10 @@ def christmas_storie(n: int, memo: dict = {}) -> int:
 
 
 if __name__ == '__main__':
+    input_dict = {}
     try:
         # Example input {'Alice': ['ARA', (1, 2, 4)], 'Bob': ['EPI', (5)],
         # 'Charlie': ['EPI', (2.2, 1)], 'David': ['EPI', (5, 5, 5)], 'Eve': ['EPI', (5,5,1)]}
-
         input_dict = ast.literal_eval(input('Enter a dictionary: '))
     except Exception:
         print('Invalid input.')

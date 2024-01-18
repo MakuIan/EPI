@@ -2,7 +2,6 @@
 gpr excercise 11
 '''
 __author__ = '8175858, Braun'
-from huffmann_tree import Node
 
 with open('table_GPR11.txt', 'r', encoding='utf-8') as file:
     lines = file.readlines()
@@ -27,50 +26,16 @@ def encode(text):
     return encoded_text
 
 
-def build_huffman_tree():
-    def list_to_binary_tree(lst, index=0):
-        if index < len(lst):
-            node = Node(lst[index])
-            node.left = list_to_binary_tree(lst, 2 * index + 1)
-            node.right = list_to_binary_tree(lst, 2 * index + 2)
-            return node
-        return None
-    root = Node(1)
-    # left nodes
-    root.left = Node(0.393)
-    root.left.left = Node(0.206)
-    root.left.right = Node(0.187)
-    root.left.right.left = Node(0.112)
-    root.left.right.right = Node(0.075)
-
-    # right nodes
-    right_nodes = [0.578,
-                   0.411, 0.167,
-                   0.243, 0.168, 0.121, 0.046,
-                   0.131, 0.112, 0.094, 0.074, 0.074, 0.074, 0.028, 0.018,
-                   0.075, 0.056, 0.056, 0.056, 0.047, 0.047, 0.037, 0.037, 0.037, 0.037, 0.028, 0.019, 0.019, 0.009, 0.009, 0.009]
-    root.right = list_to_binary_tree(right_nodes)
-
-    return root
-
-
-def decode(encoded_text, tree):
+def decode(encoded_text):
     '''
     decode text via huffman code   
     '''
     decoded_text = ''
     bits = ''
-    node = tree
     for bit in encoded_text:
-        if bit == '0':
-            bits += bit
-            node = node.left
-        elif bit == '1':
-            bits += bit
-            node = node.right
-        if node.left is None and node.right is None:
+        bits += bit
+        if bits in swapped_code:
             decoded_text += swapped_code[bits]
-            node = tree
             bits = ''
     return decoded_text
 
@@ -81,4 +46,4 @@ if __name__ == '__main__':
     print(code)
     # path = build_huffman_tree().traverse()
     # print(path)
-    print(decode(encode(QUOTE), build_huffman_tree()))
+    print(decode(encode(QUOTE)))

@@ -53,6 +53,16 @@ class Graph:
                     undirected_graph[edge].append(vertice)
         return undirected_graph
 
+    def dfs(self, vertex, visited):
+        '''
+        A recursive function that uses visited[] to do DFS
+        starting from vertex v.
+        '''
+        visited[vertex] = True
+        for neighbor in self.items[vertex]:
+            if not visited[neighbor]:
+                self.dfs(neighbor, visited)
+
     def is_cyclic_util(self, v, visited, parent, ugraph):
         '''
         A recursive function that uses visited[] and parent to detect
