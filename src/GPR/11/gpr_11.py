@@ -41,9 +41,31 @@ def decode(encoded_text):
 
 
 if __name__ == '__main__':
-    QUOTE = 'One Ring to rule them all, One Ring to find them, One Ring to bring them all, and in the darkness bind them'
-    print(encode(QUOTE))
-    print(code)
-    # path = build_huffman_tree().traverse()
-    # print(path)
-    print(decode(encode(QUOTE)))
+    print('GPR 11')
+    print('-----')
+    print('Tests')
+    print('-----')
+    Q1 = "o, r t b n o b, h a a o s h a i"
+    Q2 = "s a t r s, a o a r f m t s u a l a s"
+    Q3 = "h a t a a o t f r a d r e r e h u r a"
+    Q4 = "u t u a b f e a b d n r o a t"
+    Q5 = "h a t a a o t f r a d r e r e h u r a"
+    quotes = (Q1, Q2, Q3, Q4, Q5)
+
+    for i, quote in enumerate(quotes):
+        print(f'quote {i+1}')
+        print(f'quote: {quote}')
+
+        print(f'encoded: {encode(quote)}')
+        print(f'decoded: {decode(encode(quote))}')
+        print('-----')
+
+    print('-----')
+    print('User Input')
+    print('-----')
+    quote = input('quote: ')
+    try:
+        print(f'encoded: {encode(quote)}')
+        print(f'decoded: {decode(encode(quote))}')
+    except ValueError as error:
+        print(error)
